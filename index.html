@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testerino</title>
+    <style>
+      :root { font-family: system-ui, Arial, sans-serif; }
+      body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #0f172a; color: #e2e8f0; }
+      .card { background: #111827; padding: 1.5rem; border-radius: 12px; width: min(92vw, 560px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+      h1 { margin-top: 0; font-size: 1.4rem; }
+      .row { display: flex; gap: .75rem; align-items: center; flex-wrap: wrap; }
+      select { padding: .5rem .75rem; border-radius: 8px; border: 1px solid #334155; background: #0b1220; color: #e2e8f0; }
+      #output { margin-top: 1rem; font-size: 1.2rem; font-weight: 600; color: #93c5fd; }
+      .muted { color: #94a3b8; font-size: .9rem; }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <h1>Testerino: Hello World Translator</h1>
+      <p class="muted">Pick a language:</p>
+      <div class="row">
+        <label for="lang">Language</label>
+        <select id="lang" aria-label="Language selector"></select>
+      </div>
+      <div id="output" role="status" aria-live="polite"></div>
+    </main>
+
+    <script>
+      const translations = {
+        English: "Hello, world!",
+        Dutch: "Hallo, wereld!",
+        French: "Bonjour, le monde !",
+        German: "Hallo, Welt!",
+        Spanish: "¡Hola, mundo!",
+        Italian: "Ciao, mondo!",
+        Portuguese: "Olá, mundo!",
+        Japanese: "こんにちは世界！",
+        Korean: "안녕하세요, 세계!",
+        Chinese: "你好，世界！"
+      };
+
+      const select = document.getElementById("lang");
+      const output = document.getElementById("output");
+
+      Object.keys(translations).forEach((lang) => {
+        const option = document.createElement("option");
+        option.value = lang;
+        option.textContent = lang;
+        select.appendChild(option);
+      });
+
+      const render = () => {
+        output.textContent = translations[select.value];
+      };
+
+      select.value = "English";
+      select.addEventListener("change", render);
+      render();
+    </script>
+  </body>
+</html>
